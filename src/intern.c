@@ -111,8 +111,8 @@ char *getListEntry(struct per_session_data *psd) {
 	size_t strSize;
 
 	strSize = strlen(psd->host) + 1;
-	strSize = strlen(psd->port) + 1;
-	strSize = strlen(psd->id) + 1;
+	strSize += strlen(psd->port) + 1;
+	strSize += strlen(psd->id) + 1;
 	buf = malloc(strSize * sizeof(char));
 	strcpy(buf, psd->host);
 	strcat(buf, ":");
