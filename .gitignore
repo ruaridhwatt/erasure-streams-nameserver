@@ -21,6 +21,7 @@
 *.dylib
 
 # Executables
+bin/
 *.exe
 *.out
 *.app
@@ -30,3 +31,7 @@
 
 # Debug files
 *.dSYM/
+
+# Eclipse Stuff
+.cproject
+.project
