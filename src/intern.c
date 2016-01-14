@@ -12,6 +12,11 @@ enum nsCommand {
 llist *serverList = NULL;
 int idCounter = 0;
 
+/**
+ * Converts an internal command string to the corresponding nsCommand enum
+ * @param command The command string
+ * @return The corresponding nsCommand enum
+ */
 enum nsCommand getNSCommand(char *in) {
 	int i;
 	for (i = 0; i < nrNSCommands; i++) {
@@ -22,6 +27,16 @@ enum nsCommand getNSCommand(char *in) {
 	return (enum nsCommand) i;
 }
 
+/**
+ * Callback for the "intern" websockets protocol
+ * @param ctx The context
+ * @param wsi The client connection
+ * @param reason The reason for the callback
+ * @param user The allocated per user data
+ * @param in The data received
+ * @param len The length in bytes of the received data
+ * @return 0 for success, otherwise -1
+ */
 int callback_intern(struct libwebsocket_context *ctx, struct libwebsocket *wsi,
 		enum libwebsocket_callback_reasons reason, void *user, void *in, size_t len) {
 
@@ -106,6 +121,11 @@ int callback_intern(struct libwebsocket_context *ctx, struct libwebsocket *wsi,
 	return 0;
 }
 
+/**
+ * Creates a string format of the psd
+ * @param psd The per session data
+ * @return The corresponding string
+ */
 char *getListEntry(struct per_session_data *psd) {
 	char *buf;
 	size_t strSize;
@@ -122,6 +142,10 @@ char *getListEntry(struct per_session_data *psd) {
 	return buf;
 }
 
+/**
+ * Gets the tail element of the media server list
+ * @return The tail element of the media server list
+ */
 element* get_tail() {
 	element *position;
 	position = llist_first(serverList);
@@ -132,6 +156,10 @@ element* get_tail() {
 
 }
 
+/**
+ * Removes the media server with the given psd from the list of media servers
+ * @param psd The per session data
+ */
 void remove_server(struct per_session_data *psd) {
 	element *pos;
 	char *psdStr;
@@ -148,6 +176,10 @@ void remove_server(struct per_session_data *psd) {
 	free(psdStr);
 }
 
+/**
+ * gets the media server list in string format (lst\thost:port:id\thost:port:id\t...)
+ * @return
+ */
 char * getServerList() {
 	element *position;
 	char *listContains;
@@ -170,6 +202,11 @@ char * getServerList() {
 	return listContains;
 }
 
+/**
+ * Gets the initialization variables in string format to send to the media server
+ * @param psd The media server's per session data
+ * @return The initialization string
+ */
 char *getInitVars(struct per_session_data *psd) {
 	char *buf, *dest;
 	size_t strSize;
@@ -191,6 +228,10 @@ char *getInitVars(struct per_session_data *psd) {
 	return buf;
 }
 
+/**
+ * Gets a redirect string to send to the web client.
+ * @return the redirect command string
+ */
 char *getRedirect() {
 	char *listEntry, *buf, *pos, *dest;
 	size_t strSize;
@@ -214,10 +255,16 @@ char *getRedirect() {
 	return buf;
 }
 
+/**
+ * Initializes the media server list
+ */
 void init_server_list() {
 	serverList = llist_empty(free);
 }
 
+/**
+ * Frees the media server list
+ */
 void free_server_list() {
 	llist_free(serverList);
 }

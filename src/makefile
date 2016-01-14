@@ -1,4 +1,4 @@
-OUT=name_server
+OUT=erasure-streams-nameserver
 COMPILER=gcc
 FLAGS=-g -Wall -pedantic
 LIBS=-lwebsockets -lpthread

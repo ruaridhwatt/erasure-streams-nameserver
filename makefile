@@ -1,4 +1,4 @@
-PROGRAM_NAME=erasure_nameserver
+PROGRAM_NAME=erasure-streams-nameserver
 SRC_DIR=src
 BIN_DIR=bin
 
